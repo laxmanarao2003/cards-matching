@@ -1,0 +1,49 @@
+img{
+   user-select: none;
+   cursor: pointer;
+}
+.ltrspacing1
+{
+   letter-spacing: 1px;
+}
+.ltrspacing2
+{
+   letter-spacing: 0.4px;
+   cursor:context-menu;
+}
+/***********Image rotater**********/
+.imgrotate1
+{
+   animation-name: rotate1;
+   animation-iteration-count: 1;
+   animation-timing-function: ease-in-out;
+   animation-duration: 1.3s;
+}
+@keyframes rotate1 {
+   0%{
+      transform:rotateY(90deg);
+      border: 3px solid red;
+   }
+   5%{
+      transform:rotateY(90deg);
+      border: 3px solid red;
+   }
+}
+
+.imgrotate2
+{
+   animation-name: rotate2;
+   animation-iteration-count: 1;
+   animation-timing-function: ease-in-out;
+   animation-duration: 800ms;
+}
+@keyframes rotate2 {
+   0%{
+      transform:rotateY(90deg);
+      border: 2px solid red;
+   }
+   5%{
+      transform:rotateY(90deg);
+      border: 2px solid red;
+   }
+}
