@@ -10,77 +10,81 @@ let img9=document.getElementById("img9");
 let img10=document.getElementById("img10");
 let img11=document.getElementById("img11");
 let img12=document.getElementById("img12");
-let count=0,score=0,flipcount=0;
-let first,second,firid,secid,val1,val2;
+let guess=document.getElementById("guess");
+let match=document.getElementById("match");
+let percentage=document.getElementById("percentage");
+let matchtxt=document.getElementById("matchtxt");
+let count=0,score=0,flipcount=0,matches=0;
+let first,second,firid,secid,guesses=0;
 
-let flipcard=(flip,val)=>{
+let flipcard=(flip)=>{
    let clicked=flip.src;
    let pos=clicked.search("img");
    /*********** findind first and second clicked cards ***********/
    /*********** firid,secid = image element ***********/
-   (!first) ? (first=clicked.slice(pos),firid=flip,val1=val) : second=clicked.slice(pos),secid=flip,val2=val;
-   flipcount=flipcount+1;
-   console.log(pos);
-   if(flipcount<=2){
-      if(flipcount==1){
-      firid.classList.add("imgrotate1");
-      firid.src=`.\\img${val1}.jpg`;
-      }
-      secid.classList.add("imgrotate1");
-      secid.src=`.\\img${val2}.jpg`;
-   setTimeout(()=>{
-      firid.classList.remove("imgrotate1");
-   },1000);
-   setTimeout(()=>{
-      secid.classList.remove("imgrotate1");
-   },1000);
-}
-   
-   console.log(first,second);
-   console.log(firid.id,secid.id);
+   (!first) ? (first=clicked.slice(pos),firid=flip) : second=clicked.slice(pos),secid=flip;
+   guesses+=1;
 
+   /********** Number of guesses *********/
+   if(guesses%2==0){
+      guess.innerHTML=" "+(guesses/2);
+   }
+
+   /********* Matching verification ************/
    if(first==second)
    {
       console.log("matched");
+      matches+=1;
+      match.innerHTML=" "+matches;
       first="";second="";
+      matchtxt.innerHTML="Found a match!";
    }
    else if(first!=second && second!="")
    {
-      console.log(0);
+      matchtxt.innerHTML="No match!";
       count+=1;
-      
+      if(count>1){
          setTimeout(()=>{
             firid.classList.add("imgrotate2");
             secid.classList.add("imgrotate2");
             firid.src=`.\\card${firid.id.slice(3)}.jpg`;
             secid.src=`.\\card${secid.id.slice(3)}.jpg`;
             first="";second="";
-         },4000);
-      
+         },1000);
+      }
       setTimeout(()=>{
       firid.classList.remove("imgrotate2");
       secid.classList.remove("imgrotate2");
-      },8000);
-}
-   if(flipcount>2){flipcount=0;}
+      },2000);
+   }
+   /********* Percentage shown ********/
+   if(match.innerHTML!=0 && guess.innerHTML!=0){
+      let res=(match.innerHTML/guess.innerHTML)*100;
+      let fres=res.toString();
+      percentage.innerHTML=" "+fres.slice(0,5);
+   }
+
 }
 
+/******** clicking cards addeventlisteners ********/
    img1.addEventListener("click",flip1=()=>
    {
-      let val=1;
-     /* setTimeout(()=>{
+      img1.classList.add("imgrotate1");
+      img1.src=".\\img1.jpg";
+      setTimeout(()=>{
          img1.classList.remove("imgrotate1");
-      },1000);*/
-      flipcard(img1,val);
+      },1000);
+      flipcard(img1);
    });
 
    img2.addEventListener("click",flip1=()=>
    {
-      let val=3;
-     /* setTimeout(()=>{
+      img2.classList.add("imgrotate1");
+      img2.src=".\\img3.jpg";
+      setTimeout(()=>{
          img2.classList.remove("imgrotate1");
-      },1000);*/
-      flipcard(img2,val);
+      },1000);
+      flipcard(img2);
    });
 
    img3.addEventListener("click",flip1=()=>
